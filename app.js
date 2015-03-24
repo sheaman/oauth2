@@ -14,6 +14,10 @@ app.oauth = oauthserver({
   debug: true
 });
 
+console.log('this');
+var redisCreds = require('./config/redis-credentials.json');
+console.log(redisCreds);
+
 // Handle token grant requests
 app.all('/oauth/token', app.oauth.grant());
 

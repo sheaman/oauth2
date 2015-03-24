@@ -1,6 +1,7 @@
 var model = module.exports,
   util = require('util'),
-  redis = require('redis');
+  redis = require('redis'),
+  fs = require('fs');
 
 // var db = redis.createClient();
 
@@ -8,15 +9,17 @@ if(db) {
 	console.log('client is already set...');
 }
 
-var db = redis.createClient(15371, 'pub-redis-15371.us-east-1-2.5.ec2.garantiadata.com', {no_ready_check: true});
-db.auth('sparky45', function (err) {
+var redisCreds = require('../config/redis-credentials.json');
+
+var db = redis.createClient(redisCreds.redisPort, redisCreds.redisServer, {no_ready_check: true});
+
+db.auth(redisCreds.redisPass, function (err) {
     if (err) throw err;
 });
 
 db.on('connect', function() {
     console.log('Connected to Redis');
 });
-
 
 var keys = {
   token: 'tokens:%s',
