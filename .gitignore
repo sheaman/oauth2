@@ -7,3 +7,6 @@
 node_modules
 
 redis-credentials.json
+
+# Environment variables
+.env

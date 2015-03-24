@@ -9,11 +9,9 @@ if(db) {
 	console.log('client is already set...');
 }
 
-var redisCreds = require('../config/redis-credentials.json');
+var db = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST, {no_ready_check: true});
 
-var db = redis.createClient(redisCreds.redisPort, redisCreds.redisServer, {no_ready_check: true});
-
-db.auth(redisCreds.redisPass, function (err) {
+db.auth(process.env.REDIS_PASSWORD, function (err) {
     if (err) throw err;
 });
 

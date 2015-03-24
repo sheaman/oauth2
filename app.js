@@ -1,3 +1,5 @@
+require('dotenv').load('process.env');
+
 var express = require('express'),
   bodyParser = require('body-parser'),
   oauthserver = require('node-oauth2-server'); // Would be: 'oauth2-server'
@@ -13,10 +15,6 @@ app.oauth = oauthserver({
   grants: ['password', 'refresh_token'],
   debug: true
 });
-
-console.log('this');
-var redisCreds = require('./config/redis-credentials.json');
-console.log(redisCreds);
 
 // Handle token grant requests
 app.all('/oauth/token', app.oauth.grant());
